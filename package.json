@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js --ext js,pug"
   },
   "dependencies": {
     "express": "^4.17.1",
