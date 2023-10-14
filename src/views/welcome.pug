@@ -1,5 +1,13 @@
 extends viewport-main
 
 block main
-    h1 You are welcome!
-    p Hello World
+    .container(ng-app="app" ng-controller="welcome-controller")
+        h1.my-5 You are welcome!
+        p {{message}}
+
+block append scripts
+    script
+        | const app = angular.module('app', [])
+        | app.controller('welcome-controller', ['$scope', function($scope) {
+        |   $scope.message = "Hello World!";
+        | }]);

@@ -6,6 +6,7 @@ module.exports = function useRouter() {
 
   routes.get('/', (_, res) => res.redirect(302, '/welcome'));
   routes.get('/welcome', WelcomeController.actionIndex);
+  routes.get('/async-test', WelcomeController.actionAsync);
 
   return (request, response, next) => {
     routes(request, response, next);
