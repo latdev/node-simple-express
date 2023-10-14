@@ -4,13 +4,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js --ext js,pug"
+    "dev": "nodemon index.js --ext js,pug",
+    "devpp": "nodemon index.js --ext js,pug | pino-pretty"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "pino": "^8.16.0",
     "pug": "^3.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "pino-pretty": "^10.2.3"
   }
 }
