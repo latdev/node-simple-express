@@ -1,4 +1,6 @@
+const path = require('node:path');
 const express = require('express');
+const cors = require('cors')
 
 const getLogger = require('./common/get-logger');
 const useRouter = require('./routes');
@@ -16,7 +18,9 @@ module.exports = async function main() {
   app.set('views', __dirname + '/views');
   app.locals.pretty = true;
 
+  app.use(cors());
   app.use('/static', express.static(__dirname + '/../static'));
+  app.get("/favicon.ico", (_, res) => res.sendFile(path.dirname(__dirname) + '/static/favicon_io/favicon.ico'))
   app.use(useLogger(), useRouter());
   app.use(useNotFound(), useErrors());
 
