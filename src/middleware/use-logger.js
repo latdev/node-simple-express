@@ -18,7 +18,17 @@ module.exports = function useLogger() {
 
   return (request, response, next) => {
     const requestAddress = structuredClone(request.ip);
+    const requestStart = process.hrtime.bigint();
 
+    /**
+     *
+     *  @todo setBytesSentHook can be replaced
+     *   request.socket.bytesRead
+     *   request.socket.bytesWritten
+     *
+     *  but this method are some buggy with keep-alive connection
+     *
+     */
     setBytesSentHook(response);
 
     response.on('finish', () => {
@@ -26,7 +36,9 @@ module.exports = function useLogger() {
         .child({
           ip: requestAddress,
           status: response.statusCode,
+          // read: request.socket.bytesRead,
           sent: response.bytesSent,
+          duration: Math.round(parseInt(process.hrtime.bigint() - requestStart) / 1000000) / 1000
         })
         .info(request.method + ' ' + request.url);
     });

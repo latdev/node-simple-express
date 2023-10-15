@@ -4,10 +4,34 @@ block main
     .container(ng-app="app" ng-controller="welcome-controller")
         h1.my-5 You are welcome!
         p {{message}}
+        h5 Angular post JSON test
+
+        .mb-3
+            label.form-label(for="email") Email address
+            input.form-control(id="email" type="email" ng-model="email")
+        .mb-3
+            label.form-label(for="password") Password
+            input.form-control(id="password" ng-model="password")
+
+        .my-2: button.btn.btn-outline-secondary(ng-click="postTest($event)") Test Post
 
 block append scripts
     script
         | const app = angular.module('app', [])
-        | app.controller('welcome-controller', ['$scope', function($scope) {
+        | app.controller('welcome-controller', ['$scope', '$http', function($scope, $http) {
         |   $scope.message = "Hello World!";
+        |   $scope.email = "test@test.com";
+        |   $scope.password = "12345678";
+        |   $scope.postTest = function($event) {
+        |     const payload = {"username":$scope.email, "password":$scope.password};
+        |     $http.post('/login', payload)
+        |       .then(
+        |         function(response) {
+        |           console.log(response.data);
+        |         },
+        |         function(error) {
+        |           console.error(error.data);
+        |         }
+        |       )
+        |   } // end postTest
         | }]);
