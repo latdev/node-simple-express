@@ -1,4 +1,3 @@
-const { request } = require('express');
 const getLogger = require('../common/get-logger');
 
 function setBytesSentHook(response) {
